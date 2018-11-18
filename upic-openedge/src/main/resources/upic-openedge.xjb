@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 Upic
+
+This file is part of upic-openedge.
+
+upic-openedge is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+upic-openedge is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with upic-openedge. If not, see <http://www.gnu.org/licenses/>.
+-->
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" schemaLocation="upic-openedge.xsd">
+	<jaxb:globalBindings generateMixedExtensions="true">
+		<jaxb:serializable uid="1" />
+	</jaxb:globalBindings>
+	<jaxb:bindings node="xs:complexType[@name='Param']//xs:element[@name='Row']">
+		<jaxb:property name="rowList" />
+	</jaxb:bindings>
+	<jaxb:bindings
+		node="xs:complexType[@name='Param']//xs:element[@name='Value']">
+		<jaxb:property name="valueElementList"
+			generateElementProperty="true" />
+	</jaxb:bindings>
+	<jaxb:bindings node="xs:complexType[@name='Row']//xs:element[@name='Field']">
+		<jaxb:property name="fieldElementList"
+			generateElementProperty="true" />
+	</jaxb:bindings>
+	<jaxb:bindings
+		node="xs:complexType[@name='TempTableMetaData']//xs:element[@name='FieldMetaData']">
+		<jaxb:property name="fieldMetaDataList" />
+	</jaxb:bindings>
+	<jaxb:bindings
+		node="xs:element[@name='OpenEdgeRequest']//xs:element[@name='Param']">
+		<jaxb:property name="paramElementList"
+			generateElementProperty="true" />
+	</jaxb:bindings>
+	<jaxb:bindings
+		node="xs:element[@name='OpenEdgeResponse']//xs:element[@name='Param']">
+		<jaxb:property name="paramElementList"
+			generateElementProperty="true" />
+	</jaxb:bindings>
+</jaxb:bindings>

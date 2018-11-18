@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2011 Upic
+
+This file is part of upic-openedge.
+
+upic-openedge is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+upic-openedge is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with upic-openedge. If not, see <http://www.gnu.org/licenses/>.
+-->
+<xs:schema elementFormDefault="qualified"
+	targetNamespace="http://schemas.upic.com.br/camel/openedge/2012/12"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.upic.com.br/camel/openedge/2012/12">
+	<xs:complexType name="CharArrayParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CharField" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="tns:Field" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CharFieldMetaData">
+		<xs:complexContent>
+			<xs:extension base="tns:FieldMetaData" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CharParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateArrayParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateField" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="tns:Field" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateFieldMetaData">
+		<xs:complexContent>
+			<xs:extension base="tns:FieldMetaData" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeArrayParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeField" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="tns:Field" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeFieldMetaData">
+		<xs:complexContent>
+			<xs:extension base="tns:FieldMetaData" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeTZArrayParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeTZField" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="tns:Field" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeTZFieldMetaData">
+		<xs:complexContent>
+			<xs:extension base="tns:FieldMetaData" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DateTimeTZParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DecArrayParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DecField" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="tns:Field" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DecFieldMetaData">
+		<xs:complexContent>
+			<xs:extension base="tns:FieldMetaData" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DecParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Field" mixed="true">
+		<xs:attribute name="id" type="xs:int" />
+		<xs:attribute name="name" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="FieldMetaData">
+		<xs:attribute name="id" type="xs:int" use="required" />
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="extent" type="xs:int" default="0" />
+	</xs:complexType>
+	<xs:complexType name="IntArrayParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IntField" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="tns:Field" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IntFieldMetaData">
+		<xs:complexContent>
+			<xs:extension base="tns:FieldMetaData" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IntParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LogArrayParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LogField" mixed="true">
+		<xs:complexContent>
+			<xs:extension base="tns:Field" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LogFieldMetaData">
+		<xs:complexContent>
+			<xs:extension base="tns:FieldMetaData" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="LogParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Param">
+		<xs:sequence>
+			<xs:element name="Row" type="tns:Row" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="TempTableMetaData" minOccurs="0"
+				type="tns:TempTableMetaData" />
+			<xs:element name="Value" type="xs:string" minOccurs="0"
+				maxOccurs="unbounded" nillable="true" />
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:int" use="required" />
+		<xs:attribute name="name" type="xs:string" />
+		<xs:attribute name="mode" type="xs:int" use="required" />
+	</xs:complexType>
+	<xs:complexType name="Row">
+		<xs:sequence>
+			<xs:element name="Field" type="tns:Field" minOccurs="0"
+				maxOccurs="unbounded" nillable="true" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TempTableMetaData">
+		<xs:sequence>
+			<xs:element name="FieldMetaData" type="tns:FieldMetaData"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TempTableParam">
+		<xs:complexContent>
+			<xs:extension base="tns:Param" />
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="OpenEdgeRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Param" type="tns:Param" minOccurs="0"
+					maxOccurs="unbounded" nillable="true" />
+			</xs:sequence>
+			<xs:attribute name="program" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OpenEdgeResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="xs:string" />
+				<xs:element name="Param" type="tns:Param" minOccurs="0"
+					maxOccurs="unbounded" nillable="true" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
