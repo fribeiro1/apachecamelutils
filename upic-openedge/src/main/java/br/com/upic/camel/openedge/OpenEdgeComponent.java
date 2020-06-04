@@ -16,11 +16,11 @@ import java.util.Map;
 import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultComponent;
 
-public final class OpenEdgeComponent extends DefaultComponent {
+public class OpenEdgeComponent extends DefaultComponent {
 
 	@Override
-	protected Endpoint createEndpoint(final String uri, final String remaining,
-			final Map<String, Object> params) throws Exception {
+	protected Endpoint createEndpoint(String uri, String remaining,
+			Map<String, Object> params) throws Exception {
 		return new OpenEdgeEndpoint(uri, remaining, this);
 	}
 

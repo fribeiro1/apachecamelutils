@@ -21,22 +21,22 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.w3c.dom.Document;
 
-public final class JsonDataFormat implements DataFormat {
-	private static final String DEFAULT_KEY = "result";
+public class JsonDataFormat implements DataFormat {
+	private static String DEFAULT_KEY = "result";
 
 	@Override
-	public void marshal(final Exchange exchange, final Object graph,
-			final OutputStream stream) throws Exception {
-		final Object body = exchange.getIn().getBody();
+	public void marshal(Exchange exchange, Object graph,
+			OutputStream stream) throws Exception {
+		Object body = exchange.getIn().getBody();
 
 		if (body instanceof JSONObject)
 			return;
 
-		final TypeConverter converter = exchange.getContext()
+		TypeConverter converter = exchange.getContext()
 				.getTypeConverter();
 
 		if (!(body instanceof Document)) {
-			final JSONObject obj = new JSONObject();
+			JSONObject obj = new JSONObject();
 
 			obj.put(DEFAULT_KEY, body);
 
@@ -52,7 +52,7 @@ public final class JsonDataFormat implements DataFormat {
 	}
 
 	@Override
-	public Object unmarshal(final Exchange exchange, final InputStream stream) {
+	public Object unmarshal(Exchange exchange, InputStream stream) {
 		throw new UnsupportedOperationException();
 	}
 

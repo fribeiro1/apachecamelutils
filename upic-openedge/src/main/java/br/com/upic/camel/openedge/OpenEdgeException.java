@@ -13,10 +13,10 @@ package br.com.upic.camel.openedge;
 
 import org.apache.camel.CamelException;
 
-public final class OpenEdgeException extends CamelException {
-	private static final long serialVersionUID = -4654438712011622732L;
+public class OpenEdgeException extends CamelException {
+	private static long serialVersionUID = -4654438712011622732L;
 
-	public OpenEdgeException(final String message, final Throwable cause) {
+	public OpenEdgeException(String message, Throwable cause) {
 		super(message, cause);
 	}
 

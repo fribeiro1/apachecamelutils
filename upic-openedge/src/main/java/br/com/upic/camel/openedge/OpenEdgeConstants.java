@@ -11,13 +11,13 @@
  */
 package br.com.upic.camel.openedge;
 
-public final class OpenEdgeConstants {
-	static final String PARAM_PASSWORD = "password";
-	static final String PARAM_SESSION_MODEL = "sessionModel";
-	static final String PARAM_USER = "user";
+public class OpenEdgeConstants {
+	static String PARAM_PASSWORD = "password";
+	static String PARAM_SESSION_MODEL = "sessionModel";
+	static String PARAM_USER = "user";
 
-	static final String SESSION_MODEL_FREE = "Session-free";
-	static final String SESSION_MODEL_MANAGED = "Session-managed";
+	static String SESSION_MODEL_FREE = "Session-free";
+	static String SESSION_MODEL_MANAGED = "Session-managed";
 
 	private OpenEdgeConstants() {
 	}

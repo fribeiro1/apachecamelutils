@@ -16,11 +16,11 @@ import org.apache.camel.Exchange;
 import org.json.JSONObject;
 
 @Converter
-public final class JsonTypeConverter {
+public class JsonTypeConverter {
 
 	@Converter
-	public static byte[] toByteArray(final JSONObject value,
-			final Exchange exchange) {
+	public static byte[] toByteArray(JSONObject value,
+			Exchange exchange) {
 		return (byte[]) exchange.getContext().getTypeConverter().convertTo(
 				byte[].class, value.toString());
 	}

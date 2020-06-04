@@ -11,9 +11,9 @@
  */
 package br.com.upic.camel.ldap;
 
-public final class LdapConstants {
-	public static final String HEADER_PASSWORD = "UpicLdapPassword";
-	public static final String HEADER_USER = "UpicLdapUser";
+public class LdapConstants {
+	public static String HEADER_PASSWORD = "UpicLdapPassword";
+	public static String HEADER_USER = "UpicLdapUser";
 
 	private LdapConstants() {
 	}

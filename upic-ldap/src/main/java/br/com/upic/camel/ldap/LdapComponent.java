@@ -16,11 +16,11 @@ import java.util.Map;
 import org.apache.camel.Endpoint;
 import org.apache.camel.impl.DefaultComponent;
 
-public final class LdapComponent extends DefaultComponent {
+public class LdapComponent extends DefaultComponent {
 
 	@Override
-	protected Endpoint createEndpoint(final String uri, final String remaining,
-			final Map<String, Object> params) {
+	protected Endpoint createEndpoint(String uri, String remaining,
+			Map<String, Object> params) {
 		return new LdapEndpoint(uri, remaining, this);
 	}
 

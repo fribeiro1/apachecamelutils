@@ -28,21 +28,21 @@ import br.com.upic.schemas.camel.openedge._2012._12.Row;
 
 import com.progress.open4gl.InputResultSet;
 
-public final class OpenEdgeResultSet extends InputResultSet {
+public class OpenEdgeResultSet extends InputResultSet {
 	private Row currentRow;
 
 	private Iterator<Row> rowIterator;
 
-	public OpenEdgeResultSet(final Iterator<Row> rowIterator) {
+	public OpenEdgeResultSet(Iterator<Row> rowIterator) {
 		this.rowIterator = rowIterator;
 	}
 
-	public Object getObject(final int columnIndex) {
-		final JAXBElement<Field> fieldElement = currentRow
+	public Object getObject(int columnIndex) {
+		JAXBElement<Field> fieldElement = currentRow
 				.getFieldElementList().get(columnIndex - 1);
 
 		if (!fieldElement.isNil()) {
-			final Field field = fieldElement.getValue();
+			Field field = fieldElement.getValue();
 
 			if (field instanceof CharField)
 				return DatatypeConverter.parseString((String) field
@@ -72,7 +72,7 @@ public final class OpenEdgeResultSet extends InputResultSet {
 	}
 
 	public boolean next() {
-		final boolean result = rowIterator.hasNext();
+		boolean result = rowIterator.hasNext();
 
 		if (result)
 			currentRow = (Row) rowIterator.next();

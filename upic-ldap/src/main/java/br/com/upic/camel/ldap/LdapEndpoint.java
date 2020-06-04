@@ -26,8 +26,8 @@ import org.apache.camel.impl.ProcessorEndpoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public final class LdapEndpoint extends ProcessorEndpoint {
-	private static final Log LOG = LogFactory.getLog("upic-ldap");
+public class LdapEndpoint extends ProcessorEndpoint {
+	private static Log LOG = LogFactory.getLog("upic-ldap");
 
 	private String initialContextFactory = "com.sun.jndi.ldap.LdapCtxFactory";
 
@@ -35,18 +35,18 @@ public final class LdapEndpoint extends ProcessorEndpoint {
 
 	private String securityAuthentication;
 
-	public LdapEndpoint(final String uri, final String providerUrl,
-			final LdapComponent component) {
+	public LdapEndpoint(String uri, String providerUrl,
+			LdapComponent component) {
 		super(uri, component);
 
 		this.providerUrl = providerUrl;
 	}
 
 	@Override
-	protected void onExchange(final Exchange exchange) throws Exception {
+	protected void onExchange(Exchange exchange) throws Exception {
 		LOG.info("Setting up the context");
 
-		final Hashtable<String, String> conf = new Hashtable<String, String>();
+		Hashtable<String, String> conf = new Hashtable<String, String>();
 
 		LOG.debug("Initial Context Factory = " + initialContextFactory);
 
@@ -60,15 +60,15 @@ public final class LdapEndpoint extends ProcessorEndpoint {
 
 		conf.put(Context.SECURITY_AUTHENTICATION, securityAuthentication);
 
-		final Message in = exchange.getIn();
+		Message in = exchange.getIn();
 
-		final String user = in.getHeader(HEADER_USER, String.class);
+		String user = in.getHeader(HEADER_USER, String.class);
 
 		LOG.debug("User = " + user);
 
 		conf.put(Context.SECURITY_PRINCIPAL, user);
 
-		final String password = in.getHeader(HEADER_PASSWORD, String.class);
+		String password = in.getHeader(HEADER_PASSWORD, String.class);
 
 		LOG.debug("Password = " + password);
 
@@ -76,13 +76,13 @@ public final class LdapEndpoint extends ProcessorEndpoint {
 
 		LOG.info("Authenticating in directory");
 
-		final Message out = exchange.getOut();
+		Message out = exchange.getOut();
 
 		try {
 			new InitialContext(conf);
 
 			out.setBody(true);
-		} catch (final AuthenticationException e) {
+		} catch (AuthenticationException e) {
 			LOG.error(e.getMessage(), e);
 
 			out.setBody(false);
@@ -90,11 +90,11 @@ public final class LdapEndpoint extends ProcessorEndpoint {
 
 	}
 
-	public void setInitialContextFactory(final String initialContextFactory) {
+	public void setInitialContextFactory(String initialContextFactory) {
 		this.initialContextFactory = initialContextFactory;
 	}
 
-	public void setSecurityAuthentication(final String securityAuthentication) {
+	public void setSecurityAuthentication(String securityAuthentication) {
 		this.securityAuthentication = securityAuthentication;
 	}
 

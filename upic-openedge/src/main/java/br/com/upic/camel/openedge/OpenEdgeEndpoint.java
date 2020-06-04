@@ -81,19 +81,19 @@ import com.progress.open4gl.RunTimeProperties;
 import com.progress.open4gl.javaproxy.OpenAppObject;
 import com.progress.open4gl.javaproxy.ParamArray;
 
-public final class OpenEdgeEndpoint extends ProcessorEndpoint {
-	private static final DocumentBuilderFactory BUILDER_FACTORY = DocumentBuilderFactory
+public class OpenEdgeEndpoint extends ProcessorEndpoint {
+	private static DocumentBuilderFactory BUILDER_FACTORY = DocumentBuilderFactory
 			.newInstance();
 
-	private static final Log LOG = LogFactory.getLog("upic-openedge");
+	private static Log LOG = LogFactory.getLog("upic-openedge");
 
-	private static final String NS = "http://schemas.upic.com.br/camel/openedge/2012/12";
+	private static String NS = "http://schemas.upic.com.br/camel/openedge/2012/12";
 
-	private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
+	private static ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 
-	private static final int PARAM_MODE_INPUT = 1;
+	private static int PARAM_MODE_INPUT = 1;
 
-	private static final int PARAM_MODE_INPUT_OUTPUT = 3;
+	private static int PARAM_MODE_INPUT_OUTPUT = 3;
 
 	private DocumentBuilder builder;
 
@@ -109,15 +109,15 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 	private String user = "";
 
-	public OpenEdgeEndpoint(final String uri, final String url,
-			final OpenEdgeComponent component) throws Exception {
+	public OpenEdgeEndpoint(String uri, String url,
+			OpenEdgeComponent component) throws Exception {
 		super(uri, component);
 
 		this.url = url;
 
 		builder = BUILDER_FACTORY.newDocumentBuilder();
 
-		final JAXBContext ctx = JAXBContext.newInstance(
+		JAXBContext ctx = JAXBContext.newInstance(
 				"br.com.upic.schemas.camel.openedge._2012._12", getClass()
 						.getClassLoader());
 
@@ -128,38 +128,38 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected void onExchange(final Exchange exchange) throws Exception {
+	protected void onExchange(Exchange exchange) throws Exception {
 
 		try {
 			LOG.info("Unmarshalling the request");
 
-			final OpenEdgeRequest req = (OpenEdgeRequest) unmarshaller
+			OpenEdgeRequest req = (OpenEdgeRequest) unmarshaller
 					.unmarshal(exchange.getIn().getBody(Document.class));
 
 			LOG.info("Setting the input params");
 
-			final List<JAXBElement<Param>> reqParamElementList = req
+			List<JAXBElement<Param>> reqParamElementList = req
 					.getParamElementList();
 
-			final ParamArray proParams = new ParamArray(
+			ParamArray proParams = new ParamArray(
 					reqParamElementList.size());
 
-			for (final JAXBElement<Param> reqParamElement : reqParamElementList) {
-				final Param reqParam = reqParamElement.getValue();
+			for (JAXBElement<Param> reqParamElement : reqParamElementList) {
+				Param reqParam = reqParamElement.getValue();
 
-				final int paramMode = reqParam.getMode();
+				int paramMode = reqParam.getMode();
 
-				final boolean paramNil = reqParamElement.isNil();
+				boolean paramNil = reqParamElement.isNil();
 
-				final int paramId = reqParam.getId();
+				int paramId = reqParam.getId();
 
 				if (reqParam instanceof CharArrayParam) {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final List<String> strList = new ArrayList<String>();
+						List<String> strList = new ArrayList<String>();
 
-						for (final JAXBElement<String> valueElement : reqParam
+						for (JAXBElement<String> valueElement : reqParam
 								.getValueElementList()) {
 
 							if (!valueElement.isNil())
@@ -194,13 +194,13 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final List<GregorianCalendar> calList = new ArrayList<GregorianCalendar>();
+						List<GregorianCalendar> calList = new ArrayList<GregorianCalendar>();
 
-						for (final JAXBElement<String> valueElement : reqParam
+						for (JAXBElement<String> valueElement : reqParam
 								.getValueElementList()) {
 
 							if (!valueElement.isNil()) {
-								final GregorianCalendar cal = new GregorianCalendar();
+								GregorianCalendar cal = new GregorianCalendar();
 
 								cal.setTime(DatatypeConverter.parseDate(
 										valueElement.getValue()).getTime());
@@ -223,7 +223,7 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final GregorianCalendar cal = new GregorianCalendar();
+						GregorianCalendar cal = new GregorianCalendar();
 
 						cal.setTime(DatatypeConverter.parseDate(
 								reqParam.getValueElementList().get(0)
@@ -238,13 +238,13 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final List<GregorianCalendar> calList = new ArrayList<GregorianCalendar>();
+						List<GregorianCalendar> calList = new ArrayList<GregorianCalendar>();
 
-						for (final JAXBElement<String> valueElement : reqParam
+						for (JAXBElement<String> valueElement : reqParam
 								.getValueElementList()) {
 
 							if (!valueElement.isNil()) {
-								final GregorianCalendar cal = new GregorianCalendar();
+								GregorianCalendar cal = new GregorianCalendar();
 
 								cal.setTime(DatatypeConverter.parseDateTime(
 										valueElement.getValue()).getTime());
@@ -267,7 +267,7 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final GregorianCalendar cal = new GregorianCalendar();
+						GregorianCalendar cal = new GregorianCalendar();
 
 						cal.setTime(DatatypeConverter.parseDateTime(
 								reqParam.getValueElementList().get(0)
@@ -282,13 +282,13 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final List<GregorianCalendar> calList = new ArrayList<GregorianCalendar>();
+						List<GregorianCalendar> calList = new ArrayList<GregorianCalendar>();
 
-						for (final JAXBElement<String> valueElement : reqParam
+						for (JAXBElement<String> valueElement : reqParam
 								.getValueElementList()) {
 
 							if (!valueElement.isNil()) {
-								final GregorianCalendar cal = new GregorianCalendar();
+								GregorianCalendar cal = new GregorianCalendar();
 
 								cal.setTime(DatatypeConverter.parseDateTime(
 										valueElement.getValue()).getTime());
@@ -312,7 +312,7 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final GregorianCalendar cal = new GregorianCalendar();
+						GregorianCalendar cal = new GregorianCalendar();
 
 						cal.setTime(DatatypeConverter.parseDateTime(
 								reqParam.getValueElementList().get(0)
@@ -327,9 +327,9 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final List<BigDecimal> bdList = new ArrayList<BigDecimal>();
+						List<BigDecimal> bdList = new ArrayList<BigDecimal>();
 
-						for (final JAXBElement<String> valueElement : reqParam
+						for (JAXBElement<String> valueElement : reqParam
 								.getValueElementList()) {
 
 							if (!valueElement.isNil())
@@ -363,9 +363,9 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final List<Integer> intList = new ArrayList<Integer>();
+						List<Integer> intList = new ArrayList<Integer>();
 
-						for (final JAXBElement<String> valueElement : reqParam
+						for (JAXBElement<String> valueElement : reqParam
 								.getValueElementList()) {
 
 							if (!reqParamElement.isNil())
@@ -400,9 +400,9 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 					if (((paramMode == PARAM_MODE_INPUT) || (paramMode == PARAM_MODE_INPUT_OUTPUT))
 							&& (!paramNil)) {
-						final List<Boolean> boolList = new ArrayList<Boolean>();
+						List<Boolean> boolList = new ArrayList<Boolean>();
 
-						for (final JAXBElement<String> valueElement : reqParam
+						for (JAXBElement<String> valueElement : reqParam
 								.getValueElementList()) {
 
 							if (!valueElement.isNil())
@@ -435,16 +435,16 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 						proParams.addLogical(paramId, null, paramMode);
 
 				} else if (reqParam instanceof TempTableParam) {
-					final TempTableMetaData ttMetaData = reqParam
+					TempTableMetaData ttMetaData = reqParam
 							.getTempTableMetaData();
 
-					final List<FieldMetaData> fieldMetaDataList = ttMetaData
+					List<FieldMetaData> fieldMetaDataList = ttMetaData
 							.getFieldMetaDataList();
 
-					final ProResultSetMetaDataImpl proRsMetaData = new ProResultSetMetaDataImpl(
+					ProResultSetMetaDataImpl proRsMetaData = new ProResultSetMetaDataImpl(
 							fieldMetaDataList.size());
 
-					for (final FieldMetaData fieldMetaData : fieldMetaDataList) {
+					for (FieldMetaData fieldMetaData : fieldMetaDataList) {
 
 						if (fieldMetaData instanceof CharFieldMetaData)
 							proRsMetaData.setFieldMetaData(
@@ -511,49 +511,49 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 			else if (SESSION_MODEL_FREE == sessionModel)
 				RunTimeProperties.setSessionModel(1);
 
-			final OpenAppObject proAppObject = new OpenAppObject(url, user,
+			OpenAppObject proAppObject = new OpenAppObject(url, user,
 					password, null, null);
 
 			proAppObject.runProc(req.getProgram(), proParams);
 
 			LOG.info("Marshalling the response");
 
-			final OpenEdgeResponse res = OBJECT_FACTORY
+			OpenEdgeResponse res = OBJECT_FACTORY
 					.createOpenEdgeResponse();
 
 			res.setResult(proParams.getProcReturnString());
 
 			LOG.info("Setting the output params");
 
-			for (final JAXBElement<Param> reqParamElement : reqParamElementList) {
-				final Param reqParam = reqParamElement.getValue();
+			for (JAXBElement<Param> reqParamElement : reqParamElementList) {
+				Param reqParam = reqParamElement.getValue();
 
-				final int paramMode = reqParam.getMode();
+				int paramMode = reqParam.getMode();
 
 				if (paramMode != PARAM_MODE_INPUT) {
-					final int paramId = reqParam.getId();
+					int paramId = reqParam.getId();
 
-					final String paramName = reqParam.getName();
+					String paramName = reqParam.getName();
 
 					if (reqParam instanceof CharArrayParam) {
-						final JAXBElement resParamElement = new JAXBElement<CharArrayParam>(
+						JAXBElement resParamElement = new JAXBElement<CharArrayParam>(
 								new QName(NS, "Param"), CharArrayParam.class,
 								null);
 
-						final CharArrayParam resParam = OBJECT_FACTORY
+						CharArrayParam resParam = OBJECT_FACTORY
 								.createCharArrayParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final String[] proParam = (String[]) proParams
+						String[] proParam = (String[]) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							for (int i = 0; i < proParam.length; i++) {
-								final JAXBElement<String> valueElement = new JAXBElement<String>(
+								JAXBElement<String> valueElement = new JAXBElement<String>(
 										new QName(NS, "Value"), String.class,
 										null);
 
@@ -574,20 +574,20 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof CharParam) {
-						final JAXBElement resParamElement = new JAXBElement<CharParam>(
+						JAXBElement resParamElement = new JAXBElement<CharParam>(
 								new QName(NS, "Param"), CharParam.class, null);
 
-						final CharParam resParam = OBJECT_FACTORY
+						CharParam resParam = OBJECT_FACTORY
 								.createCharParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final JAXBElement<String> valueElement = new JAXBElement<String>(
+						JAXBElement<String> valueElement = new JAXBElement<String>(
 								new QName(NS, "Value"), String.class, null);
 
-						final String proParam = (String) proParams
+						String proParam = (String) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null)
@@ -602,29 +602,29 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DateArrayParam) {
-						final JAXBElement resParamElement = new JAXBElement<DateArrayParam>(
+						JAXBElement resParamElement = new JAXBElement<DateArrayParam>(
 								new QName(NS, "Param"), DateArrayParam.class,
 								null);
 
-						final DateArrayParam resParam = OBJECT_FACTORY
+						DateArrayParam resParam = OBJECT_FACTORY
 								.createDateArrayParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final Date[] proParam = (Date[]) proParams
+						Date[] proParam = (Date[]) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							for (int i = 0; i < proParam.length; i++) {
-								final JAXBElement<String> valueElement = new JAXBElement<String>(
+								JAXBElement<String> valueElement = new JAXBElement<String>(
 										new QName(NS, "Value"), String.class,
 										null);
 
 								if (proParam[i] != null) {
-									final Calendar cal = Calendar.getInstance();
+									Calendar cal = Calendar.getInstance();
 
 									cal.setTime(proParam[i]);
 
@@ -645,24 +645,24 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DateParam) {
-						final JAXBElement resParamElement = new JAXBElement<DateParam>(
+						JAXBElement resParamElement = new JAXBElement<DateParam>(
 								new QName(NS, "Param"), DateParam.class, null);
 
-						final DateParam resParam = OBJECT_FACTORY
+						DateParam resParam = OBJECT_FACTORY
 								.createDateParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final JAXBElement<String> valueElement = new JAXBElement<String>(
+						JAXBElement<String> valueElement = new JAXBElement<String>(
 								new QName(NS, "Value"), String.class, null);
 
-						final Date proParam = (Date) proParams
+						Date proParam = (Date) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
-							final Calendar cal = Calendar.getInstance();
+							Calendar cal = Calendar.getInstance();
 
 							cal.setTime(proParam);
 
@@ -678,24 +678,24 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DateTimeArrayParam) {
-						final JAXBElement resParamElement = new JAXBElement<DateTimeArrayParam>(
+						JAXBElement resParamElement = new JAXBElement<DateTimeArrayParam>(
 								new QName(NS, "Param"),
 								DateTimeArrayParam.class, null);
 
-						final DateTimeArrayParam resParam = OBJECT_FACTORY
+						DateTimeArrayParam resParam = OBJECT_FACTORY
 								.createDateTimeArrayParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final GregorianCalendar[] proParam = (GregorianCalendar[]) proParams
+						GregorianCalendar[] proParam = (GregorianCalendar[]) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							for (int i = 0; i < proParam.length; i++) {
-								final JAXBElement<String> valueElement = new JAXBElement<String>(
+								JAXBElement<String> valueElement = new JAXBElement<String>(
 										new QName(NS, "Value"), String.class,
 										null);
 
@@ -716,21 +716,21 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DateTimeParam) {
-						final JAXBElement resParamElement = new JAXBElement<DateTimeParam>(
+						JAXBElement resParamElement = new JAXBElement<DateTimeParam>(
 								new QName(NS, "Param"), DateTimeParam.class,
 								null);
 
-						final DateTimeParam resParam = OBJECT_FACTORY
+						DateTimeParam resParam = OBJECT_FACTORY
 								.createDateTimeParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final JAXBElement<String> valueElement = new JAXBElement<String>(
+						JAXBElement<String> valueElement = new JAXBElement<String>(
 								new QName(NS, "Value"), String.class, null);
 
-						final GregorianCalendar proParam = (GregorianCalendar) proParams
+						GregorianCalendar proParam = (GregorianCalendar) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null)
@@ -745,24 +745,24 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DateTimeTZArrayParam) {
-						final JAXBElement resParamElement = new JAXBElement<DateTimeTZArrayParam>(
+						JAXBElement resParamElement = new JAXBElement<DateTimeTZArrayParam>(
 								new QName(NS, "Param"),
 								DateTimeTZArrayParam.class, null);
 
-						final DateTimeTZArrayParam resParam = OBJECT_FACTORY
+						DateTimeTZArrayParam resParam = OBJECT_FACTORY
 								.createDateTimeTZArrayParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final GregorianCalendar[] proParam = (GregorianCalendar[]) proParams
+						GregorianCalendar[] proParam = (GregorianCalendar[]) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							for (int i = 0; i < proParam.length; i++) {
-								final JAXBElement<String> valueElement = new JAXBElement<String>(
+								JAXBElement<String> valueElement = new JAXBElement<String>(
 										new QName(NS, "Value"), String.class,
 										null);
 
@@ -783,21 +783,21 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DateTimeTZParam) {
-						final JAXBElement resParamElement = new JAXBElement<DateTimeTZParam>(
+						JAXBElement resParamElement = new JAXBElement<DateTimeTZParam>(
 								new QName(NS, "Param"), DateTimeTZParam.class,
 								null);
 
-						final DateTimeTZParam resParam = OBJECT_FACTORY
+						DateTimeTZParam resParam = OBJECT_FACTORY
 								.createDateTimeTZParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final JAXBElement<String> valueElement = new JAXBElement<String>(
+						JAXBElement<String> valueElement = new JAXBElement<String>(
 								new QName(NS, "Value"), String.class, null);
 
-						final GregorianCalendar proParam = (GregorianCalendar) proParams
+						GregorianCalendar proParam = (GregorianCalendar) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null)
@@ -812,24 +812,24 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DecArrayParam) {
-						final JAXBElement resParamElement = new JAXBElement<DecArrayParam>(
+						JAXBElement resParamElement = new JAXBElement<DecArrayParam>(
 								new QName(NS, "Param"), DecArrayParam.class,
 								null);
 
-						final DecArrayParam resParam = OBJECT_FACTORY
+						DecArrayParam resParam = OBJECT_FACTORY
 								.createDecArrayParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final BigDecimal[] proParam = (BigDecimal[]) proParams
+						BigDecimal[] proParam = (BigDecimal[]) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							for (int i = 0; i < proParam.length; i++) {
-								final JAXBElement<String> valueElement = new JAXBElement<String>(
+								JAXBElement<String> valueElement = new JAXBElement<String>(
 										new QName(NS, "Value"), String.class,
 										null);
 
@@ -850,20 +850,20 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof DecParam) {
-						final JAXBElement resParamElement = new JAXBElement<DecParam>(
+						JAXBElement resParamElement = new JAXBElement<DecParam>(
 								new QName(NS, "Param"), DecParam.class, null);
 
-						final DecParam resParam = OBJECT_FACTORY
+						DecParam resParam = OBJECT_FACTORY
 								.createDecParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final JAXBElement<String> valueElement = new JAXBElement<String>(
+						JAXBElement<String> valueElement = new JAXBElement<String>(
 								new QName(NS, "Value"), String.class, null);
 
-						final BigDecimal proParam = (BigDecimal) proParams
+						BigDecimal proParam = (BigDecimal) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null)
@@ -878,24 +878,24 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof IntArrayParam) {
-						final JAXBElement resParamElement = new JAXBElement<IntArrayParam>(
+						JAXBElement resParamElement = new JAXBElement<IntArrayParam>(
 								new QName(NS, "Param"), IntArrayParam.class,
 								null);
 
-						final IntArrayParam resParam = OBJECT_FACTORY
+						IntArrayParam resParam = OBJECT_FACTORY
 								.createIntArrayParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final Integer[] proParam = (Integer[]) proParams
+						Integer[] proParam = (Integer[]) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							for (int i = 0; i < proParam.length; i++) {
-								final JAXBElement<String> valueElement = new JAXBElement<String>(
+								JAXBElement<String> valueElement = new JAXBElement<String>(
 										new QName(NS, "Value"), String.class,
 										null);
 
@@ -916,20 +916,20 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof IntParam) {
-						final JAXBElement resParamElement = new JAXBElement<IntParam>(
+						JAXBElement resParamElement = new JAXBElement<IntParam>(
 								new QName(NS, "Param"), IntParam.class, null);
 
-						final IntParam resParam = OBJECT_FACTORY
+						IntParam resParam = OBJECT_FACTORY
 								.createIntParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final JAXBElement<String> valueElement = new JAXBElement<String>(
+						JAXBElement<String> valueElement = new JAXBElement<String>(
 								new QName(NS, "Value"), String.class, null);
 
-						final Integer proParam = (Integer) proParams
+						Integer proParam = (Integer) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null)
@@ -944,24 +944,24 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof LogArrayParam) {
-						final JAXBElement resParamElement = new JAXBElement<LogArrayParam>(
+						JAXBElement resParamElement = new JAXBElement<LogArrayParam>(
 								new QName(NS, "Param"), LogArrayParam.class,
 								null);
 
-						final LogArrayParam resParam = OBJECT_FACTORY
+						LogArrayParam resParam = OBJECT_FACTORY
 								.createLogArrayParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final Boolean[] proParam = (Boolean[]) proParams
+						Boolean[] proParam = (Boolean[]) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							for (int i = 0; i < proParam.length; i++) {
-								final JAXBElement<String> valueElement = new JAXBElement<String>(
+								JAXBElement<String> valueElement = new JAXBElement<String>(
 										new QName(NS, "Value"), String.class,
 										null);
 
@@ -982,20 +982,20 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof LogParam) {
-						final JAXBElement resParamElement = new JAXBElement<LogParam>(
+						JAXBElement resParamElement = new JAXBElement<LogParam>(
 								new QName(NS, "Param"), LogParam.class, null);
 
-						final LogParam resParam = OBJECT_FACTORY
+						LogParam resParam = OBJECT_FACTORY
 								.createLogParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final JAXBElement<String> valueElement = new JAXBElement<String>(
+						JAXBElement<String> valueElement = new JAXBElement<String>(
 								new QName(NS, "Value"), String.class, null);
 
-						final Boolean proParam = (Boolean) proParams
+						Boolean proParam = (Boolean) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null)
@@ -1010,53 +1010,53 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 						res.getParamElementList().add(resParamElement);
 					} else if (reqParam instanceof TempTableParam) {
-						final JAXBElement resParamElement = new JAXBElement<TempTableParam>(
+						JAXBElement resParamElement = new JAXBElement<TempTableParam>(
 								new QName(NS, "Param"), TempTableParam.class,
 								null);
 
-						final TempTableParam resParam = OBJECT_FACTORY
+						TempTableParam resParam = OBJECT_FACTORY
 								.createTempTableParam();
 
 						resParam.setId(paramId);
 
 						resParam.setName(paramName);
 
-						final ProResultSet proParam = (ProResultSet) proParams
+						ProResultSet proParam = (ProResultSet) proParams
 								.getOutputParameter(resParam.getId());
 
 						if (proParam != null) {
 
 							while (proParam.next()) {
-								final Row row = OBJECT_FACTORY.createRow();
+								Row row = OBJECT_FACTORY.createRow();
 
-								final TempTableMetaData ttMetaData = reqParam
+								TempTableMetaData ttMetaData = reqParam
 										.getTempTableMetaData();
 
-								for (final FieldMetaData fieldMetaData : ttMetaData
+								for (FieldMetaData fieldMetaData : ttMetaData
 										.getFieldMetaDataList()) {
-									final int fieldExtent = fieldMetaData
+									int fieldExtent = fieldMetaData
 											.getExtent();
 
-									final int fieldId = fieldMetaData.getId();
+									int fieldId = fieldMetaData.getId();
 
-									final String fieldName = fieldMetaData
+									String fieldName = fieldMetaData
 											.getName();
 
 									if (fieldMetaData instanceof CharFieldMetaData) {
 
 										if (fieldExtent < 1) {
-											final JAXBElement fieldElement = new JAXBElement<CharField>(
+											JAXBElement fieldElement = new JAXBElement<CharField>(
 													new QName(NS, "Field"),
 													CharField.class, null);
 
-											final CharField field = OBJECT_FACTORY
+											CharField field = OBJECT_FACTORY
 													.createCharField();
 
 											field.setId(fieldId);
 
 											field.setName(fieldName);
 
-											final String proValue = proParam
+											String proValue = proParam
 													.getString(field.getId());
 
 											if (proValue != null) {
@@ -1074,18 +1074,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 										} else {
 
 											for (int i = 1; i <= fieldExtent; i++) {
-												final JAXBElement fieldElement = new JAXBElement<CharField>(
+												JAXBElement fieldElement = new JAXBElement<CharField>(
 														new QName(NS, "Field"),
 														CharField.class, null);
 
-												final CharField field = OBJECT_FACTORY
+												CharField field = OBJECT_FACTORY
 														.createCharField();
 
 												field.setId(fieldId);
 
 												field.setName(fieldName);
 
-												final String proValue = proParam
+												String proValue = proParam
 														.getString(
 																field.getId(),
 																i);
@@ -1110,22 +1110,22 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 									} else if (fieldMetaData instanceof DateFieldMetaData) {
 
 										if (fieldExtent < 1) {
-											final JAXBElement fieldElement = new JAXBElement<DateField>(
+											JAXBElement fieldElement = new JAXBElement<DateField>(
 													new QName(NS, "Field"),
 													DateField.class, null);
 
-											final DateField field = OBJECT_FACTORY
+											DateField field = OBJECT_FACTORY
 													.createDateField();
 
 											field.setId(fieldId);
 
 											field.setName(fieldName);
 
-											final Date proValue = proParam
+											Date proValue = proParam
 													.getDate(field.getId());
 
 											if (proValue != null) {
-												final Calendar cal = Calendar
+												Calendar cal = Calendar
 														.getInstance();
 
 												cal.setTime(proValue);
@@ -1144,23 +1144,23 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 										} else {
 
 											for (int i = 1; i <= fieldExtent; i++) {
-												final JAXBElement fieldElement = new JAXBElement<DateField>(
+												JAXBElement fieldElement = new JAXBElement<DateField>(
 														new QName(NS, "Field"),
 														DateField.class, null);
 
-												final DateField field = OBJECT_FACTORY
+												DateField field = OBJECT_FACTORY
 														.createDateField();
 
 												field.setId(fieldId);
 
 												field.setName(fieldName);
 
-												final Date proValue = proParam
+												Date proValue = proParam
 														.getDate(field.getId(),
 																i);
 
 												if (proValue != null) {
-													final Calendar cal = Calendar
+													Calendar cal = Calendar
 															.getInstance();
 
 													cal.setTime(proValue);
@@ -1184,18 +1184,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 									} else if (fieldMetaData instanceof DateTimeFieldMetaData) {
 
 										if (fieldExtent < 1) {
-											final JAXBElement fieldElement = new JAXBElement<DateTimeField>(
+											JAXBElement fieldElement = new JAXBElement<DateTimeField>(
 													new QName(NS, "Field"),
 													DateTimeField.class, null);
 
-											final DateTimeField field = OBJECT_FACTORY
+											DateTimeField field = OBJECT_FACTORY
 													.createDateTimeField();
 
 											field.setId(fieldId);
 
 											field.setName(fieldName);
 
-											final GregorianCalendar proValue = (GregorianCalendar) proParam
+											GregorianCalendar proValue = (GregorianCalendar) proParam
 													.getObject(field.getId());
 
 											if (proValue != null) {
@@ -1213,19 +1213,19 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 										} else {
 
 											for (int i = 1; i <= fieldExtent; i++) {
-												final JAXBElement fieldElement = new JAXBElement<DateTimeField>(
+												JAXBElement fieldElement = new JAXBElement<DateTimeField>(
 														new QName(NS, "Field"),
 														DateTimeField.class,
 														null);
 
-												final DateTimeField field = OBJECT_FACTORY
+												DateTimeField field = OBJECT_FACTORY
 														.createDateTimeField();
 
 												field.setId(fieldId);
 
 												field.setName(fieldName);
 
-												final GregorianCalendar proValue = (GregorianCalendar) proParam
+												GregorianCalendar proValue = (GregorianCalendar) proParam
 														.getObject(
 																field.getId(),
 																i);
@@ -1250,18 +1250,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 									} else if (fieldMetaData instanceof DateTimeTZFieldMetaData) {
 
 										if (fieldExtent < 1) {
-											final JAXBElement fieldElement = new JAXBElement<DateTimeTZField>(
+											JAXBElement fieldElement = new JAXBElement<DateTimeTZField>(
 													new QName(NS, "Field"),
 													DateTimeTZField.class, null);
 
-											final DateTimeTZField field = OBJECT_FACTORY
+											DateTimeTZField field = OBJECT_FACTORY
 													.createDateTimeTZField();
 
 											field.setId(fieldId);
 
 											field.setName(fieldName);
 
-											final GregorianCalendar proValue = (GregorianCalendar) proParam
+											GregorianCalendar proValue = (GregorianCalendar) proParam
 													.getObject(field.getId());
 
 											if (proValue != null) {
@@ -1279,19 +1279,19 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 										} else {
 
 											for (int i = 1; i <= fieldExtent; i++) {
-												final JAXBElement fieldElement = new JAXBElement<DateTimeTZField>(
+												JAXBElement fieldElement = new JAXBElement<DateTimeTZField>(
 														new QName(NS, "Field"),
 														DateTimeTZField.class,
 														null);
 
-												final DateTimeTZField field = OBJECT_FACTORY
+												DateTimeTZField field = OBJECT_FACTORY
 														.createDateTimeTZField();
 
 												field.setId(fieldId);
 
 												field.setName(fieldName);
 
-												final GregorianCalendar proValue = (GregorianCalendar) proParam
+												GregorianCalendar proValue = (GregorianCalendar) proParam
 														.getObject(
 																field.getId(),
 																i);
@@ -1316,18 +1316,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 									} else if (fieldMetaData instanceof DecFieldMetaData) {
 
 										if (fieldExtent < 1) {
-											final JAXBElement fieldElement = new JAXBElement<DecField>(
+											JAXBElement fieldElement = new JAXBElement<DecField>(
 													new QName(NS, "Field"),
 													DecField.class, null);
 
-											final DecField field = OBJECT_FACTORY
+											DecField field = OBJECT_FACTORY
 													.createDecField();
 
 											field.setId(fieldId);
 
 											field.setName(fieldName);
 
-											final BigDecimal proValue = proParam
+											BigDecimal proValue = proParam
 													.getBigDecimal(field
 															.getId());
 
@@ -1346,18 +1346,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 										} else {
 
 											for (int i = 1; i <= fieldExtent; i++) {
-												final JAXBElement fieldElement = new JAXBElement<DecField>(
+												JAXBElement fieldElement = new JAXBElement<DecField>(
 														new QName(NS, "Field"),
 														DecField.class, null);
 
-												final DecField field = OBJECT_FACTORY
+												DecField field = OBJECT_FACTORY
 														.createDecField();
 
 												field.setId(fieldId);
 
 												field.setName(fieldName);
 
-												final BigDecimal proValue = proParam
+												BigDecimal proValue = proParam
 														.getBigDecimal(
 																field.getId(),
 																i, 0);
@@ -1382,18 +1382,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 									} else if (fieldMetaData instanceof IntFieldMetaData) {
 
 										if (fieldExtent < 1) {
-											final JAXBElement fieldElement = new JAXBElement<IntField>(
+											JAXBElement fieldElement = new JAXBElement<IntField>(
 													new QName(NS, "Field"),
 													IntField.class, null);
 
-											final IntField field = OBJECT_FACTORY
+											IntField field = OBJECT_FACTORY
 													.createIntField();
 
 											field.setId(fieldId);
 
 											field.setName(fieldName);
 
-											final String proValue = proParam
+											String proValue = proParam
 													.getString(field.getId());
 
 											if (proValue != null) {
@@ -1412,18 +1412,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 										} else {
 
 											for (int i = 1; i <= fieldExtent; i++) {
-												final JAXBElement fieldElement = new JAXBElement<IntField>(
+												JAXBElement fieldElement = new JAXBElement<IntField>(
 														new QName(NS, "Field"),
 														IntField.class, null);
 
-												final IntField field = OBJECT_FACTORY
+												IntField field = OBJECT_FACTORY
 														.createIntField();
 
 												field.setId(fieldId);
 
 												field.setName(fieldName);
 
-												final String proValue = proParam
+												String proValue = proParam
 														.getString(
 																field.getId(),
 																i);
@@ -1449,18 +1449,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 									} else if (fieldMetaData instanceof LogFieldMetaData) {
 
 										if (fieldExtent < 1) {
-											final JAXBElement fieldElement = new JAXBElement<LogField>(
+											JAXBElement fieldElement = new JAXBElement<LogField>(
 													new QName(NS, "Field"),
 													LogField.class, null);
 
-											final LogField field = OBJECT_FACTORY
+											LogField field = OBJECT_FACTORY
 													.createLogField();
 
 											field.setId(fieldId);
 
 											field.setName(fieldName);
 
-											final String proValue = proParam
+											String proValue = proParam
 													.getString(field.getId());
 
 											if (proValue != null) {
@@ -1479,18 +1479,18 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 										} else {
 
 											for (int i = 1; i <= fieldExtent; i++) {
-												final JAXBElement fieldElement = new JAXBElement<LogField>(
+												JAXBElement fieldElement = new JAXBElement<LogField>(
 														new QName(NS, "Field"),
 														LogField.class, null);
 
-												final LogField field = OBJECT_FACTORY
+												LogField field = OBJECT_FACTORY
 														.createLogField();
 
 												field.setId(fieldId);
 
 												field.setName(fieldName);
 
-												final String proValue = proParam
+												String proValue = proParam
 														.getString(
 																field.getId(),
 																i);
@@ -1532,12 +1532,12 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 			}
 
-			final Document doc = builder.newDocument();
+			Document doc = builder.newDocument();
 
 			marshaller.marshal(res, doc);
 
 			exchange.getOut().setBody(doc);
-		} catch (final RunTime4GLErrorException e) {
+		} catch (RunTime4GLErrorException e) {
 			LOG.error(e.getProcReturnString(), e);
 
 			throw new OpenEdgeException(e.getProcReturnString(), e);
@@ -1545,15 +1545,15 @@ public final class OpenEdgeEndpoint extends ProcessorEndpoint {
 
 	}
 
-	public void setPassword(final String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public void setSessionModel(final String sessionModel) {
+	public void setSessionModel(String sessionModel) {
 		this.sessionModel = sessionModel;
 	}
 
-	public void setUser(final String user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
