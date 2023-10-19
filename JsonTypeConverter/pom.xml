@@ -27,7 +27,7 @@ You should have received a copy of the GNU Lesser General Public License along w
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20090211</version>
+			<version>20231013</version>
 		</dependency>
 	</dependencies>
 	<build>
